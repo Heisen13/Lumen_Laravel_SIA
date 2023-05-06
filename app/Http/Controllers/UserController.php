@@ -17,7 +17,7 @@ public function __construct(Request $request){
     $this->request = $request;
 }
 
-public function get(){
+public function getall(){
     $users = DB::connection('mysql')
         ->select("Select * from students");
         return $this->successResponse($users);
