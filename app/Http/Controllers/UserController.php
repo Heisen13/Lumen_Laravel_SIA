@@ -64,7 +64,15 @@ public function update(Request $request,$Student_ID)
     $this->validate($request, $rules);
     $user = User;;findOrFail($Student_ID);
     $user->fill($request->all()); 
+    
+    if ($user->isClean()) {
+        return $this->errorResponse('At least one value must change', Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    $user->save();
+    return $this->successResponse($user);
 }
+
 
 public function show($Student_ID)
 {
